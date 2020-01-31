@@ -24,6 +24,6 @@ class Pet(db.Model):
     notes = db.Column(db.Text)
     available = db.Column(db.Boolean, nullable=False, default=True)
 
-    @validates('name', 'species')
+    @validates('name')
     def convert_title(self, key, value):
         return value.title()
