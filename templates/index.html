@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block header %}Pets{% endblock %}
+
+{% block content %}
+{% for pet in pets %}
+  <span class="col-4"><img src='{{pet.photo_url}}'>
+    <div>{{pet.name}}
+      {% if pet.available %}
+      is available!
+      {% endif %}
+    </div>
+  </span>
+{% endfor%}
+
+<a href="/add" class="btn btn-primary">Add a Pet</a>
+{% endblock %}
