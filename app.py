@@ -2,6 +2,7 @@ from flask import Flask, redirect, render_template, request
 from models import db, connect_db, Pet
 from flask_debugtoolbar import DebugToolbarExtension
 from forms import AddPetForm, EditPetForm
+from petfinder_requests import get_random_pet
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///adopt'
@@ -9,7 +10,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 
 connect_db(app)
-# db.create_all() - don't need to run every time
+db.create_all()
 
 app.config['SECRET_KEY'] = "poiawhefiusiuawe"
 debug = DebugToolbarExtension(app)
@@ -19,7 +20,10 @@ debug = DebugToolbarExtension(app)
 def homepage():
     """ Homepage of Pets List """
 
-    return render_template("index.html", pets=Pet.query.all())
+    [name, age, url] = get_random_pet()
+    return render_template("index.html",
+                           pets=Pet.query.all(), name=name,
+                           age=age, url=url)
 
 
 @app.route("/add", methods=["GET", "POST"])

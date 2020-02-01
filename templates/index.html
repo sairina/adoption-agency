@@ -5,15 +5,32 @@
 {% block header %}Pets{% endblock %}
 
 {% block content %}
-{% for pet in pets %}
-  <span class="col-4"><a href="/{{pet.id}}"><img src='{{pet.photo_url}}' width='300px' height='300px'></a>
-    <div>{{pet.name}}
-      {% if pet.available %}
-      is available!
-      {% endif %}
-    </div>
-  </span>
-{% endfor%}
 
-<a href="/add" class="btn btn-primary">Add a Pet</a>
+<h1>Our Pets</h1>
+<div class="row">
+  {% for pet in pets %}
+  <div class="col-md-6 col-sm-12 col-lg-4">
+    <div>
+      <a href="/{{pet.id}}"><img src='{{pet.photo_url}}' width='300px' height='300px'></a>
+    </div>
+    <div>{{pet.name}}{% if pet.available %} is available!{% endif %}</div>
+  </div>
+  {% endfor%}
+</div>
+
+<h2>Random Petfinder Pet</h2>
+<div class="row">
+  <div class="col-6">
+    <div>
+      <img src='{{url}}' width='300px' height='300px'>
+    </div>
+    <div>
+      {{name}} is a{% if age == 'Adult' %}n {% endif %}{{age}} pet!
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <a href="/add" class="btn btn-primary my-2 mx-3">Add a Pet</a>
+</div>
 {% endblock %}
